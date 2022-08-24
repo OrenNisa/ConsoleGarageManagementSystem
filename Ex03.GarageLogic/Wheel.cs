@@ -8,10 +8,12 @@
 
         public Wheel()
         {
+            m_ManufacturerName = "Michelin";
         }
 
         public Wheel(float i_MaxAirPressure)
         {
+            m_ManufacturerName = "Michelin";
             r_MaxAirPressure = i_MaxAirPressure;
         }
 
@@ -58,13 +60,19 @@
 
         public void InflateWheel(float i_AirPressure)
         {
-            if (i_AirPressure >= 0)
+            if (this.CurrentAirPressure + i_AirPressure <= this.MaxAirPressure & i_AirPressure >= 0)
             {
-                if (m_CurrentAirPressure + i_AirPressure <= r_MaxAirPressure)
-                {
-                    m_CurrentAirPressure += i_AirPressure;
-                }
+                this.CurrentAirPressure += i_AirPressure;
             }
+            else
+            {
+                throw new ValueOutOfRangeException(this.MaxAirPressure, 0);
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Manufacturer: {0}\nCurrent Air: {1}", this.ManufacturerName, this.CurrentAirPressure);
         }
     }
 }

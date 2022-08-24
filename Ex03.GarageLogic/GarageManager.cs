@@ -1,47 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
     public class GarageManager
     {
+        private const float k_60Minutes = 60f;
         private readonly Dictionary<string, Order> m_OrdersCollection = new Dictionary<string, Order>();
 
-        public void Test()
+        public void AddNewOrder(
+            string i_LicenseNumber,
+            eVehicleType i_VehicleType,
+            string i_OwnerName,
+            string i_OwnerPhone,
+            params object[] i_ListOfParameters)
         {
-            FuelTruck ft1 = new FuelTruck("1234563");
-            ElectricCar ec1 = new ElectricCar("1234569");
-            FuelCar fc1 = new FuelCar("1234561");
-            FuelMotorcycle fm1 = new FuelMotorcycle("1234568");
-            ElectricMotorcycle em1 = new ElectricMotorcycle("1234567");
-
-            Vehicle v1 = ft1;
-            (v1 as IChargeable).Charge(2);
-
-            ft1.TransportsRefrigerated = true;
-            ec1.Charge(2);
-        }
-
-        public void AddNewOrder(string i_LicenseNumber, eVehicleType i_VehicleType)
-        {
-            if (i_VehicleType == eVehicleType.FuelCar)
+            if (i_VehicleType == eVehicleType.ElectricCar)
             {
-                m_OrdersCollection.Add(i_LicenseNumber, new Order(new FuelCar(i_LicenseNumber), eVehicleType.FuelCar));
-            }
-            else if (i_VehicleType == eVehicleType.FuelMotorcycle)
-            {
-                m_OrdersCollection.Add(i_LicenseNumber, new Order(new FuelMotorcycle(i_LicenseNumber), eVehicleType.FuelMotorcycle));
-            }
-            else if (i_VehicleType == eVehicleType.ElectricCar)
-            {
-                m_OrdersCollection.Add(i_LicenseNumber, new Order(new ElectricCar(i_LicenseNumber), eVehicleType.ElectricCar));
+                m_OrdersCollection.Add(i_LicenseNumber, new Order(i_OwnerName, i_OwnerPhone, new ElectricCar(i_LicenseNumber), i_VehicleType));
+                m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).BatteryHoursRemaining = (float)i_ListOfParameters[2];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).Color = (eColor)i_ListOfParameters[3];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).DoorsNumber = (eDoors)i_ListOfParameters[4];
             }
             else if (i_VehicleType == eVehicleType.ElectricMotorcycle)
             {
-                m_OrdersCollection.Add(i_LicenseNumber, new Order(new ElectricMotorcycle(i_LicenseNumber), eVehicleType.ElectricMotorcycle));
+                m_OrdersCollection.Add(i_LicenseNumber, new Order(i_OwnerName, i_OwnerPhone, new ElectricMotorcycle(i_LicenseNumber), i_VehicleType));
+                m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).BatteryHoursRemaining = (float)i_ListOfParameters[2];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).EngineVolumeCC = (int)i_ListOfParameters[3];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4];
+            }
+            else if (i_VehicleType == eVehicleType.FuelCar)
+            {
+                m_OrdersCollection.Add(i_LicenseNumber, new Order(i_OwnerName, i_OwnerPhone, new FuelCar(i_LicenseNumber), i_VehicleType));
+                m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).Color = (eColor)i_ListOfParameters[3];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).DoorsNumber = (eDoors)i_ListOfParameters[4];
+            }
+            else if (i_VehicleType == eVehicleType.FuelMotorcycle)
+            {
+                m_OrdersCollection.Add(i_LicenseNumber, new Order(i_OwnerName, i_OwnerPhone, new FuelMotorcycle(i_LicenseNumber), i_VehicleType));
+                m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).EngineVolumeCC = (int)i_ListOfParameters[3];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4];
             }
             else if (i_VehicleType == eVehicleType.FuelTruck)
             {
-                m_OrdersCollection.Add(i_LicenseNumber, new Order(new FuelTruck(i_LicenseNumber), eVehicleType.FuelTruck));
+                m_OrdersCollection.Add(i_LicenseNumber, new Order(i_OwnerName, i_OwnerPhone, new FuelTruck(i_LicenseNumber), i_VehicleType));
+                m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).MaxLoadWeight = (float)i_ListOfParameters[3];
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).TransportsRefrigerated = (bool)i_ListOfParameters[4];
+            }
+            else
+            {
+                throw new FormatException("Vehicle Type format is wrong");
             }
         }
 
@@ -65,11 +91,90 @@ namespace Ex03.GarageLogic
             return licenseNumbers;
         }
 
+        public void EditOrder(
+            string i_LicenseNumber,
+            eVehicleType i_VehicleType,
+            string i_OwnerName,
+            string i_OwnerPhone,
+            params object[] i_ListOfParameters)
+        {
+            if (m_OrdersCollection.ContainsKey(i_LicenseNumber))
+            {
+                if (m_OrdersCollection[i_LicenseNumber].VehicleType == i_VehicleType)
+                {
+                    m_OrdersCollection[i_LicenseNumber].OwnerName = i_OwnerName;
+                    m_OrdersCollection[i_LicenseNumber].OwnerPhone = i_OwnerPhone;
+
+                    if (i_VehicleType == eVehicleType.ElectricCar)
+                    {
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).BatteryHoursRemaining = (float)i_ListOfParameters[2];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).Color = (eColor)i_ListOfParameters[3];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricCar).DoorsNumber = (eDoors)i_ListOfParameters[4];
+                    }
+                    else if (i_VehicleType == eVehicleType.ElectricMotorcycle)
+                    {
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).BatteryHoursRemaining = (float)i_ListOfParameters[2];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).EngineVolumeCC = (int)i_ListOfParameters[3];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4];
+                    }
+                    else if (i_VehicleType == eVehicleType.FuelCar)
+                    {
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).Color = (eColor)i_ListOfParameters[3];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelCar).DoorsNumber = (eDoors)i_ListOfParameters[4];
+                    }
+                    else if (i_VehicleType == eVehicleType.FuelMotorcycle)
+                    {
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).EngineVolumeCC = (int)i_ListOfParameters[3];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4];
+                    }
+                    else if (i_VehicleType == eVehicleType.FuelTruck)
+                    {
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.ModelName = (string)i_ListOfParameters[0];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[0].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).CurrentFuelLiters = (float)i_ListOfParameters[2];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).MaxLoadWeight = (float)i_ListOfParameters[3];
+                        (m_OrdersCollection[i_LicenseNumber].Vehicle as FuelTruck).TransportsRefrigerated = (bool)i_ListOfParameters[4];
+                    }
+                    else
+                    {
+                        throw new FormatException("Vehicle Type format is wrong");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Vehicle Type is not compatible");
+                }
+            }
+            else
+            {
+                throw new KeyNotFoundException("License number does not exists");
+            }
+        }
+
         public void ChangeVehicleState(string i_LicenseNumber, eVehicleState i_NewState)
         {
             if (m_OrdersCollection.ContainsKey(i_LicenseNumber))
             {
                 m_OrdersCollection[i_LicenseNumber].VehicleState = i_NewState;
+            }
+            else
+            {
+                throw new KeyNotFoundException("License number does not exists");
             }
         }
 
@@ -82,22 +187,53 @@ namespace Ex03.GarageLogic
                     wheel.InflateWheel(wheel.MaxAirPressure - wheel.CurrentAirPressure);
                 }
             }
+            else
+            {
+                throw new KeyNotFoundException("License number does not exists");
+            }
         }
 
         public void Refuel(string i_LicenseNumber, eFuelType i_FuelType, float i_LittersToFill)
         {
-            if (m_OrdersCollection[i_LicenseNumber].Vehicle is IFulleable)
+            if (m_OrdersCollection.ContainsKey(i_LicenseNumber))
             {
-                (m_OrdersCollection[i_LicenseNumber].Vehicle as IFulleable).Refuel(i_LittersToFill, i_FuelType);
+                if (m_OrdersCollection[i_LicenseNumber].Vehicle is IFulleable)
+                {
+                    (m_OrdersCollection[i_LicenseNumber].Vehicle as IFulleable).Refuel(i_LittersToFill, i_FuelType);
+                }
+                else
+                {
+                    throw new ArgumentException("This vehicle is not based on fuel");
+                }
+            }
+            else
+            {
+                throw new KeyNotFoundException("License number does not exists");
             }
         }
 
         public void Charge(string i_LicenseNumber, float i_MinutesToCharge)
         {
-            if (m_OrdersCollection[i_LicenseNumber].Vehicle is IChargeable)
+            if (m_OrdersCollection.ContainsKey(i_LicenseNumber))
             {
-                (m_OrdersCollection[i_LicenseNumber].Vehicle as IChargeable).Charge(i_MinutesToCharge / 60);
+                if (m_OrdersCollection[i_LicenseNumber].Vehicle is IChargeable)
+                {
+                    (m_OrdersCollection[i_LicenseNumber].Vehicle as IChargeable).Charge(i_MinutesToCharge / k_60Minutes);
+                }
+                else
+                {
+                    throw new ArgumentException("This vehicle is not based on battery");
+                }
             }
+            else
+            {
+                throw new KeyNotFoundException("License number does not exists");
+            }
+        }
+
+        public bool Exists(string i_LicenseNumber)
+        {
+            return m_OrdersCollection.ContainsKey(i_LicenseNumber);
         }
 
         public string GetOrderDetails(string i_LicenseNumber)
@@ -110,7 +246,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                orderDetails = null;
+                throw new KeyNotFoundException("License number does not exists");
             }
 
             return orderDetails;
@@ -128,13 +264,15 @@ namespace Ex03.GarageLogic
             {
                 m_Vehicle = i_Vehicle;
                 m_VehicleType = i_VehicleType;
+                m_VehicleState = eVehicleState.InRepair;
             }
 
-            public Order(string i_OwnerName, string i_OwnerPhone, Vehicle i_Vehicle)
+            public Order(string i_OwnerName, string i_OwnerPhone, Vehicle i_Vehicle, eVehicleType i_VehicleType)
             {
                 m_OwnerName = i_OwnerName;
                 m_OwnerPhone = i_OwnerPhone;
                 m_Vehicle = i_Vehicle;
+                m_VehicleType = i_VehicleType;
                 m_VehicleState = eVehicleState.InRepair;
             }
 
@@ -209,23 +347,48 @@ namespace Ex03.GarageLogic
 
                 if (this.VehicleType == eVehicleType.FuelCar)
                 {
-                    details = string.Format("License Number: {0}\n");
+                    string[] args = new string[4];
+                    args[0] = string.Format("\nOwner Name: {0}", OwnerName);
+                    args[1] = string.Format("State in garage: {0}", m_VehicleState.ToString());
+                    args[2] = string.Format("Vehicle Type: Car");
+                    args[3] = (Vehicle as FuelCar).ToString();
+                    details = string.Format("{0}\n{1}\n{2}\n{3}", args);
                 }
                 else if (this.VehicleType == eVehicleType.FuelMotorcycle)
                 {
-                    // m_OrdersCollection.Add(i_LicenseNumber, new Order(new FuelMotorcycle(i_LicenseNumber)));
+                    string[] args = new string[4];
+                    args[0] = string.Format("\nOwner Name: {0}", OwnerName);
+                    args[1] = string.Format("State in garage: {0}", m_VehicleState.ToString());
+                    args[2] = string.Format("Vehicle Type: Motorcycle");
+                    args[3] = (Vehicle as FuelMotorcycle).ToString();
+                    details = string.Format("{0}\n{1}\n{2}\n{3}", args);
                 }
                 else if (this.VehicleType == eVehicleType.ElectricCar)
                 {
-                    // m_OrdersCollection.Add(i_LicenseNumber, new Order(new ElectricCar(i_LicenseNumber)));
+                    string[] args = new string[4];
+                    args[0] = string.Format("\nOwner Name: {0}", OwnerName);
+                    args[1] = string.Format("State in garage: {0}", m_VehicleState.ToString());
+                    args[2] = string.Format("Vehicle Type: Electric Car");
+                    args[3] = (Vehicle as ElectricCar).ToString();
+                    details = string.Format("{0}\n{1}\n{2}\n{3}", args);
                 }
-                else if (this.VehicleType == eVehicleType.ElectricMotorcycle)
+                else if (VehicleType == eVehicleType.ElectricMotorcycle)
                 {
-                    // m_OrdersCollection.Add(i_LicenseNumber, new Order(new ElectricMotorcycle(i_LicenseNumber)));
+                    string[] args = new string[4];
+                    args[0] = string.Format("\nOwner Name: {0}", OwnerName);
+                    args[1] = string.Format("State in garage: {0}", m_VehicleState.ToString());
+                    args[2] = string.Format("Vehicle Type: Electric Motorcycle");
+                    args[3] = (Vehicle as ElectricMotorcycle).ToString();
+                    details = string.Format("{0}\n{1}\n{2}\n{3}", args);
                 }
-                else if (this.VehicleType == eVehicleType.FuelTruck)
+                else if (VehicleType == eVehicleType.FuelTruck)
                 {
-                    // m_OrdersCollection.Add(i_LicenseNumber, new Order(new FuelTruck(i_LicenseNumber)));
+                    string[] args = new string[4];
+                    args[0] = string.Format("\nOwner Name: {0}", OwnerName);
+                    args[1] = string.Format("State in garage: {0}", m_VehicleState.ToString());
+                    args[2] = string.Format("Vehicle Type: Truck");
+                    args[3] = (Vehicle as FuelTruck).ToString();
+                    details = string.Format("{0}\n{1}\n{2}\n{3}", args);
                 }
 
                 return details;
