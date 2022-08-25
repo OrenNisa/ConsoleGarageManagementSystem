@@ -120,7 +120,14 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException(this.MaxBatteryHours, 0);
+                if (i_HoursToCharge < 0)
+                {
+                    throw new ValueOutOfRangeException("Cannot Add Negative Amount!", this.MaxBatteryHours, 0);
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException("Too much Charge!", this.MaxBatteryHours, 0);
+                }
             }
         }
 

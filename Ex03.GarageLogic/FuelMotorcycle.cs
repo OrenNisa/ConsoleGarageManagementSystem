@@ -131,7 +131,14 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(this.MaxFuelLiters, 0);
+                    if (i_LitersToAdd < 0)
+                    {
+                        throw new ValueOutOfRangeException("Cannot Add Negative Amount!", this.MaxFuelLiters, 0);
+                    }
+                    else
+                    {
+                        throw new ValueOutOfRangeException("Too much Fuel!", this.MaxFuelLiters, 0);
+                    }
                 }
             }
             else

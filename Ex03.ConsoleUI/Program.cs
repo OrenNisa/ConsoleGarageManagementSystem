@@ -1,4 +1,5 @@
 ﻿using System;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
@@ -7,14 +8,19 @@ namespace Ex03.ConsoleUI
         public static void Main()
         {
             Console.WriteLine("Hello");
-            GarageLogic.GarageManager gm = new GarageLogic.GarageManager();
-            gm.AddNewOrder("123213", GarageLogic.GarageManager.eVehicleType.FuelCar);
-            gm.AddNewOrder("8763459", GarageLogic.GarageManager.eVehicleType.FuelCar);
-            foreach(string str in gm.GetAllLicenseNumbers())
+            GarageManager gm = new GarageManager();
+            gm.AddNewOrder("123213", GarageManager.eVehicleType.FuelCar, "Jhon Wick", "0523415556", "Mercedez-Benz", 24f, 45f, 2, 3);
+
+            // gm.AddNewOrder("8763459", GarageManager.eVehicleType.FuelTruck);
+            // gm.InflateWheels("8763459");
+            // gm.Refuel("8763459", eFuelType.Soler, 15);
+            // gm.EditOrder("123213", GarageManager.eVehicleType.FuelCar, "Jhon Wick", "0523415556", "Mercedez-Benz", 24f, 45f, 2, 3);
+            foreach (string str in gm.GetAllLicenseNumbers())
             {
                 Console.WriteLine(str);
             }
 
+            Console.WriteLine(gm.GetOrderDetails("123213"));
             Console.ReadLine();
         }
 

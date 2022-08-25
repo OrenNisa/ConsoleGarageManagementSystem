@@ -66,7 +66,7 @@
             }
             else
             {
-                throw new ValueOutOfRangeException(this.MaxAirPressure, 0);
+                throw new ValueOutOfRangeException("Too Much Air Pressure!", this.MaxAirPressure, 0);
             }
         }
 
