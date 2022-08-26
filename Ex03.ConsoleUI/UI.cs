@@ -92,7 +92,6 @@ namespace Ex03.ConsoleUI
 
         private static string getUsersChoice()
         {
-            Console.WriteLine("Inside getUsersChoice");
             string choice = null;
             try
             {
@@ -124,7 +123,7 @@ namespace Ex03.ConsoleUI
         {
             if (i_ValueToCheck < i_MinValue || i_ValueToCheck > i_MaxValue)
             {
-                throw new ValueOutOfRangeException(i_MaxValue, i_MinValue);
+                throw new ValueOutOfRangeException("Invalid input, minimum value is: {i_MinValue} and the maximum value is: {i_MaxValue}", i_MaxValue, i_MinValue);
             }
         }
 
