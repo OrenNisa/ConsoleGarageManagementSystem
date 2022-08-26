@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic
                 m_OrdersCollection[i_LicenseNumber].Vehicle.WheelsCollection[1].CurrentAirPressure = (float)i_ListOfParameters[1];
                 (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).BatteryHoursRemaining = (float)i_ListOfParameters[2];
                 (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).EngineVolumeCC = (int)i_ListOfParameters[3];
-                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4] ;
+                (m_OrdersCollection[i_LicenseNumber].Vehicle as ElectricMotorcycle).LicenseType = (eLicenseType)i_ListOfParameters[4];
             }
             else if (i_VehicleType == eVehicleType.FuelCar)
             {
