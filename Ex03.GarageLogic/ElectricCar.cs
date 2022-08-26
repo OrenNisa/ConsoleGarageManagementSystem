@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
 
             for (int i = 0; i < k_NumberOfWheels; i++)
             {
-                m_WheelsCollection[i] = new Wheel(k_MaxAirPressure);
+                this.m_WheelsCollection[i] = new Wheel(k_MaxAirPressure);
             }
 
             r_ElectricInfo.m_MaxBatteryHours = k_MaxBatteryHours;

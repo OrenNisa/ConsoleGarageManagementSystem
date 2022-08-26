@@ -150,37 +150,167 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("This vehicle is already in the garage, status changed to 'InRepair'");
                 r_Garage.ChangeVehicleState(licenseNumInput, GarageManager.eVehicleState.InRepair);
             }
+            else
+            {
+                insertNewVehicle(licenseNumInput);
+            }
         }
 
         private static void getIDsInGarage()
         {
-
+            // to fill
         }
 
         private static void changeVehicleStatus()
         {
-
+            // to fill
         }
 
         private static void inflateToMax()
         {
-
+            // to fill
         }
 
         private static void refuel()
         {
-
+            // to fill
         }
 
         private static void recharge()
         {
-
+            // to fill
         }
 
         private static void getAllVehiclesDetails()
         {
-
+            // to fill
         }
 
+        private static void insertNewVehicle(string i_License)
+        {
+            eVehicleType parsedVehicleType;
+            object[] listOfParameters = new object[5];
+            string customerName;
+            string customerPhone;
+            string vehicleModel;
+            float currentWheelsAirPressure;
+            int userInput = 0;
+            bool isElectric = false;
+
+            bool isValid = false;
+            do
+            {
+                try
+                {
+                    printVehicleType();
+                    int vehicleType = int.Parse(Console.ReadLine());
+                    isValueInRange(vehicleType, 1, 5);
+                    isValid = true;
+                    Enum.TryParse(vehicleType.ToString(), out eVehicleType userParsedChoice);
+                    parsedVehicleType = userParsedChoice;
+                }
+                catch (FormatException)
+                {
+                    throw new FormatException();
+                }
+                catch (ValueOutOfRangeException i_ValueOutOfRangeException)
+                {
+                    throw i_ValueOutOfRangeException;
+                }
+            }
+            while(!isValid);
+
+            getGeneralInfo(listOfParameters, out customerName, out customerPhone);
+
+            switch (parsedVehicleType)
+            {
+                case eVehicleType.FuelMotorcycle:
+                    {
+                        getFuelMotorcycleDetails(listOfParameters);
+                        break;
+                    }
+
+                case eVehicleType.ElectricMotorcycle:
+                    {
+                        getElectricMotorcycleDetails(listOfParameters);
+                        break;
+                    }
+
+                case eVehicleType.FuelCar:
+                    {
+                        getFuelCarDetails(listOfParameters);
+                        break;
+                    }
+
+                case eVehicleType.ElectricCar:
+                    {
+                        getElectricCarDetails(listOfParameters);
+                        break;
+                    }
+
+                case eVehicleType.FuelTruck:
+                    {
+                        getFuelTruckDetails(listOfParameters);
+                        break;
+                    }
+            }
+
+            r_Garage.AddNewOrder(i_License, parsedVehicleType, customerName, customerPhone, listOfParameters);
+            Console.WriteLine("Vehicle added successfully");
+        }
+
+        private static void printVehicleType()
+        {
+            Console.WriteLine(@"Please choose a vehicle type number:
+1. Motorcycle
+2. Electric Motorcycle
+3. Car
+4. Electric Car
+5. Truck");
+        }
+
+        private static void getGeneralInfo(object[] i_ListOfParameters, out string i_CustomerName, out string i_CustomerPhone)
+        {
+            Console.WriteLine("Enter customer name:");
+            i_CustomerName = Console.ReadLine();
+            Console.WriteLine("Enter customer's phone number:");
+            i_CustomerPhone = Console.ReadLine();
+            Console.WriteLine("Enter model name:");
+            string modelName = Console.ReadLine();
+            i_ListOfParameters[0] = modelName;
+            Console.WriteLine("Enter current air pressure for tires:");
+            float airPressure = float.Parse(Console.ReadLine());
+            i_ListOfParameters[1] = airPressure;
+        }
+
+        private static void getFuelMotorcycleDetails(object[] i_ListOfParameters)
+        {
+            Console.WriteLine("Please enter battery hours remaining:");
+            float batteryHoursRemaining = float.Parse(Console.ReadLine());
+            i_ListOfParameters[2] = batteryHoursRemaining;
+            Console.WriteLine("Please enter engine volume CC:");
+            float EngineVolumeCC = int.Parse(Console.ReadLine());
+            i_ListOfParameters[3] = EngineVolumeCC;
+        }
+
+        private static void getElectricMotorcycleDetails(object[] i_ListOfParameters)
+        {
+            // to fill
+        }
+
+        private static void getFuelCarDetails(object[] i_ListOfParameters)
+        {
+            // to fill
+        }
+
+        private static void getElectricCarDetails(object[] i_ListOfParameters)
+        {
+            // to fill
+        }
+
+        private static void getFuelTruckDetails(object[] i_ListOfParameters)
+        {
+            // to fill
+        }
     }
 }
