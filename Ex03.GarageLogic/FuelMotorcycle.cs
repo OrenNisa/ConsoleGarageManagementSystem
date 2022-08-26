@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    internal class FuelMotorcycle : Motorcycle, IFulleable
+    internal class FuelMotorcycle : Motorcycle, IFuelable
     {
         private const float k_MaxAirPressure = 31f;
         private const float k_MaxFuelLiters = 5.4f;
@@ -26,100 +26,46 @@ namespace Ex03.GarageLogic
 
         public override string LicenseNumber
         {
-            get
-            {
-                return m_LicenseNumber;
-            }
+            get => m_LicenseNumber;
 
-            set
-            {
-                m_LicenseNumber = value;
-            }
+            set => m_LicenseNumber = value;
         }
 
         public override string ModelName
         {
-            get
-            {
-                return m_ModelName;
-            }
+            get => m_ModelName;
 
-            set
-            {
-                m_ModelName = value;
-            }
+            set => m_ModelName = value;
         }
 
-        public override float PercentageEnergyRemaining
-        {
-            get
-            {
-                return r_FuelInfo.m_CurrentFuelLiters / r_FuelInfo.m_MaxFuelLiters;
-            }
-        }
+        public override float PercentageEnergyRemaining => r_FuelInfo.m_CurrentFuelLiters / r_FuelInfo.m_MaxFuelLiters;
 
-        public override Wheel[] WheelsCollection
-        {
-            get
-            {
-                return m_WheelsCollection;
-            }
-        }
+        public override Wheel[] WheelsCollection => m_WheelsCollection;
 
         public eLicenseType LicenseType
         {
-            get
-            {
-                return m_LicenseType;
-            }
+            get => m_LicenseType;
 
-            set
-            {
-                m_LicenseType = value;
-            }
+            set => m_LicenseType = value;
         }
 
         public int EngineVolumeCC
         {
-            get
-            {
-                return m_EngineVolumeCC;
-            }
+            get => m_EngineVolumeCC;
 
-            set
-            {
-                m_EngineVolumeCC = value;
-            }
+            set => m_EngineVolumeCC = value;
         }
 
-        public eFuelType FuelType
-        {
-            get
-            {
-                return r_FuelInfo.m_FuelType;
-            }
-        }
+        public eFuelType FuelType => r_FuelInfo.m_FuelType;
 
         public float CurrentFuelLiters
         {
-            get
-            {
-                return r_FuelInfo.m_CurrentFuelLiters;
-            }
+            get => r_FuelInfo.m_CurrentFuelLiters;
 
-            set
-            {
-                r_FuelInfo.m_CurrentFuelLiters = value;
-            }
+            set => r_FuelInfo.m_CurrentFuelLiters = value;
         }
 
-        public float MaxFuelLiters
-        {
-            get
-            {
-                return r_FuelInfo.m_MaxFuelLiters;
-            }
-        }
+        public float MaxFuelLiters => r_FuelInfo.m_MaxFuelLiters;
 
         public void Refuel(float i_LitersToAdd, eFuelType i_FuelType)
         {

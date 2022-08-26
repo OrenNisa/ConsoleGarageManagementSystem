@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    internal class FuelCar : Car, IFulleable
+    internal class FuelCar : Car, IFuelable
     {
         private const float k_MaxAirPressure = 27f;
         private const float k_MaxFuelLiters = 52f;
