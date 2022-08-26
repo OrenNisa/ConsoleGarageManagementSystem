@@ -10,9 +10,25 @@ namespace Ex03.ConsoleUI
     public class UI
     {
         private const string k_ExitOption = "8";
-        private const int k_MinOptionInMenu = 1;
+        private const int k_MinOption = 1;
         private const int k_MaxOptionInMenu = 8;
+        private const int k_MaxVehicleStates = 4;
+        private const float k_MaxFuelChoice = 4;
         private static readonly GarageManager r_Garage = new GarageManager();
+
+        public UI()
+        {
+            r_Garage.AddNewOrder(
+                "123213",
+                eVehicleType.FuelCar,
+                "Jhon Wick",
+                "0523415556",
+                "Mercedez-Benz",
+                24f,
+                45f,
+                2,
+                3);
+        }
 
         public void runGarageApp()
         {
@@ -97,7 +113,7 @@ namespace Ex03.ConsoleUI
             {
                 choice = Console.ReadLine();
                 int choiceAsInt = int.Parse(choice);
-                isValueInRange(choiceAsInt, k_MinOptionInMenu, k_MaxOptionInMenu);
+                isValueInRange(choiceAsInt, k_MinOption, k_MaxOptionInMenu);
             }
             catch(FormatException)
             {
@@ -123,7 +139,7 @@ namespace Ex03.ConsoleUI
         {
             if (i_ValueToCheck < i_MinValue || i_ValueToCheck > i_MaxValue)
             {
-                throw new ValueOutOfRangeException("Invalid input, minimum value is: {i_MinValue} and the maximum value is: {i_MaxValue}", i_MaxValue, i_MinValue);
+                throw new ValueOutOfRangeException("Invalid input, not in range", i_MaxValue, i_MinValue);
             }
         }
 
@@ -147,7 +163,7 @@ namespace Ex03.ConsoleUI
             if(isVehicleExist)
             {
                 Console.WriteLine("This vehicle is already in the garage, status changed to 'InRepair'");
-                r_Garage.ChangeVehicleState(licenseNumInput, GarageManager.eVehicleState.InRepair);
+                r_Garage.ChangeVehicleState(licenseNumInput, eVehicleState.InRepair);
             }
             else
             {
@@ -157,22 +173,72 @@ namespace Ex03.ConsoleUI
 
         private static void getIDsInGarage()
         {
-            // to fill
+            List<string> licenseList = r_Garage.GetAllLicenseNumbers();
+            Console.WriteLine("Here's all license numbers in garage:");
+            foreach(string licenseNumber in licenseList)
+            {
+                Console.WriteLine(licenseNumber);
+            }
+
+            Console.WriteLine("Filter by:");
+            printStateTypes();
+            Console.WriteLine("4. Back to main menu");
+            string usrChoice = Console.ReadLine();
+            isValueInRange(int.Parse(usrChoice), k_MinOption, k_MaxVehicleStates);
+            eVehicleState useChoiceAsEnum = (eVehicleState)int.Parse(usrChoice);
+            licenseList = r_Garage.GetAllLicenseNumbers(useChoiceAsEnum);
+            foreach (string licenseNumber in licenseList)
+            {
+                Console.WriteLine(licenseNumber);
+            }
+        }
+
+        private static void printStateTypes()
+        {
+            Console.WriteLine(@"1. In repair
+2. Repaired
+3. Paid");
         }
 
         private static void changeVehicleStatus()
         {
-            // to fill
+            Console.WriteLine("Enter license number of vehicle you want to change state:");
+            string licenseNumber = Console.ReadLine();
+            Console.WriteLine("Update to:");
+            printStateTypes();
+            string usrChoice = Console.ReadLine();
+            eVehicleState useChoiceAsEnum = (eVehicleState)int.Parse(usrChoice);
+            r_Garage.ChangeVehicleState(licenseNumber, useChoiceAsEnum);
+            Console.WriteLine("State changed");
         }
 
         private static void inflateToMax()
         {
-            // to fill
+            Console.WriteLine("Enter license number of vehicle you want to inflate to max:");
+            string licenseNumber = Console.ReadLine();
+            r_Garage.InflateWheels(licenseNumber);
+            Console.WriteLine("Wheels inflated to maximum");
         }
 
         private static void refuel()
         {
-            // to fill
+            Console.WriteLine("Enter license number of vehicle you want to refuel:");
+            string licenseNumber = Console.ReadLine();
+            Console.WriteLine("Select fuel type:");
+            printFuelTypes();
+            string usrChoice = Console.ReadLine();
+            eFuelType useChoiceAsEnum = (eFuelType)int.Parse(usrChoice);
+            Console.WriteLine("Enter the amount to fill");
+            float amount = float.Parse(Console.ReadLine());
+            r_Garage.Refuel(licenseNumber, useChoiceAsEnum, amount);
+            }
+
+        private static void printFuelTypes()
+        {
+            Console.WriteLine(@"1. Octan95
+2. Octan96
+3. Octan98
+4. Soler");
         }
 
         private static void recharge()
