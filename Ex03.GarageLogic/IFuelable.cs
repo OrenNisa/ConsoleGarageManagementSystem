@@ -1,6 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
-    internal interface IFulleable
+    internal interface IFuelable
     {
         eFuelType FuelType { get; }
 

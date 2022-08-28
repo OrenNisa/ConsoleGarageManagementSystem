@@ -26,37 +26,19 @@
 
         public string ManufacturerName
         {
-            get
-            {
-                return m_ManufacturerName;
-            }
+            get => m_ManufacturerName;
 
-            set
-            {
-                m_ManufacturerName = value;
-            }
+            set => m_ManufacturerName = value;
         }
 
         public float CurrentAirPressure
         {
-            get
-            {
-                return m_CurrentAirPressure;
-            }
+            get => m_CurrentAirPressure;
 
-            set
-            {
-                m_CurrentAirPressure = value;
-            }
+            set => m_CurrentAirPressure = value;
         }
 
-        public float MaxAirPressure
-        {
-            get
-            {
-                return r_MaxAirPressure;
-            }
-        }
+        public float MaxAirPressure => r_MaxAirPressure;
 
         public void InflateWheel(float i_AirPressure)
         {

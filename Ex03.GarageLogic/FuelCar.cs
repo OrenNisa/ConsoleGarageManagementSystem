@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    internal class FuelCar : Car, IFulleable
+    internal class FuelCar : Car, IFuelable
     {
         private const float k_MaxAirPressure = 27f;
         private const float k_MaxFuelLiters = 52f;
@@ -27,100 +27,46 @@ namespace Ex03.GarageLogic
 
         public override string LicenseNumber
         {
-            get
-            {
-                return m_LicenseNumber;
-            }
+            get => m_LicenseNumber;
 
-            set
-            {
-                m_LicenseNumber = value;
-            }
+            set => m_LicenseNumber = value;
         }
 
         public override string ModelName
         {
-            get
-            {
-                return m_ModelName;
-            }
+            get => m_ModelName;
 
-            set
-            {
-                m_ModelName = value;
-            }
+            set => m_ModelName = value;
         }
 
-        public override float PercentageEnergyRemaining
-        {
-            get
-            {
-                return r_FuelInfo.m_CurrentFuelLiters / r_FuelInfo.m_MaxFuelLiters;
-            }
-        }
+        public override float PercentageEnergyRemaining => r_FuelInfo.m_CurrentFuelLiters / r_FuelInfo.m_MaxFuelLiters;
 
-        public override Wheel[] WheelsCollection
-        {
-            get
-            {
-                return m_WheelsCollection;
-            }
-        }
+        public override Wheel[] WheelsCollection => m_WheelsCollection;
 
         public eColor Color
         {
-            get
-            {
-                return m_Color;
-            }
+            get => m_Color;
 
-            set
-            {
-                m_Color = value;
-            }
+            set => m_Color = value;
         }
 
         public eDoors DoorsNumber
         {
-            get
-            {
-                return m_DoorsNumber;
-            }
+            get => m_DoorsNumber;
 
-            set
-            {
-                m_DoorsNumber = value;
-            }
+            set => m_DoorsNumber = value;
         }
 
-        public eFuelType FuelType
-        {
-            get
-            {
-                return r_FuelInfo.m_FuelType;
-            }
-        }
+        public eFuelType FuelType => r_FuelInfo.m_FuelType;
 
         public float CurrentFuelLiters
         {
-            get
-            {
-                return r_FuelInfo.m_CurrentFuelLiters;
-            }
+            get => r_FuelInfo.m_CurrentFuelLiters;
 
-            set
-            {
-                r_FuelInfo.m_CurrentFuelLiters = value;
-            }
+            set => r_FuelInfo.m_CurrentFuelLiters = value;
         }
 
-        public float MaxFuelLiters
-        {
-            get
-            {
-                return r_FuelInfo.m_MaxFuelLiters;
-            }
-        }
+        public float MaxFuelLiters => r_FuelInfo.m_MaxFuelLiters;
 
         public void Refuel(float i_LitersToAdd, eFuelType i_FuelType)
         {

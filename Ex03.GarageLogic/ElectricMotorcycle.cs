@@ -25,92 +25,44 @@ namespace Ex03.GarageLogic
 
         public override string LicenseNumber
         {
-            get
-            {
-                return m_LicenseNumber;
-            }
+            get => m_LicenseNumber;
 
-            set
-            {
-                m_LicenseNumber = value;
-            }
+            set => m_LicenseNumber = value;
         }
 
         public override string ModelName
         {
-            get
-            {
-                return m_ModelName;
-            }
+            get => m_ModelName;
 
-            set
-            {
-                m_ModelName = value;
-            }
+            set => m_ModelName = value;
         }
 
-        public override float PercentageEnergyRemaining
-        {
-            get
-            {
-                return r_ElectricInfo.m_BatteryHoursRemaining / r_ElectricInfo.m_MaxBatteryHours;
-            }
-        }
+        public override float PercentageEnergyRemaining => r_ElectricInfo.m_BatteryHoursRemaining / r_ElectricInfo.m_MaxBatteryHours;
 
-        public override Wheel[] WheelsCollection
-        {
-            get
-            {
-                return m_WheelsCollection;
-            }
-        }
+        public override Wheel[] WheelsCollection => m_WheelsCollection;
 
         public eLicenseType LicenseType
         {
-            get
-            {
-                return m_LicenseType;
-            }
+            get => m_LicenseType;
 
-            set
-            {
-                m_LicenseType = value;
-            }
+            set => m_LicenseType = value;
         }
 
         public int EngineVolumeCC
         {
-            get
-            {
-                return m_EngineVolumeCC;
-            }
+            get => m_EngineVolumeCC;
 
-            set
-            {
-                m_EngineVolumeCC = value;
-            }
+            set => m_EngineVolumeCC = value;
         }
 
         public float BatteryHoursRemaining
         {
-            get
-            {
-                return r_ElectricInfo.m_BatteryHoursRemaining;
-            }
+            get => r_ElectricInfo.m_BatteryHoursRemaining;
 
-            set
-            {
-                r_ElectricInfo.m_BatteryHoursRemaining = value;
-            }
+            set => r_ElectricInfo.m_BatteryHoursRemaining = value;
         }
 
-        public float MaxBatteryHours
-        {
-            get
-            {
-                return r_ElectricInfo.m_MaxBatteryHours;
-            }
-        }
+        public float MaxBatteryHours => r_ElectricInfo.m_MaxBatteryHours;
 
         public void Charge(float i_HoursToCharge)
         {
